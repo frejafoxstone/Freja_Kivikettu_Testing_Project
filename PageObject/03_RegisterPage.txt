@@ -1,0 +1,76 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+# TODO: Write Documentation e.g. User Registration Test scenario with verification, valid and invalid credentials.
+
+Documentation	User registration page testing with positive and negative test scenarios. 
+				Validate user registration using valid and invalid credentials such as invalid email and missing CAPTCHA.
+
+# TODO: Write Precondition, Postcondition, Tags
+
+Pre Condition	Open Browser
+Post Condition	Close All Browsers
+Tags Registration, TS-2-Register
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Registration field variables
+
+RegisterUrl = https://gitlab.com/users/sign_up
+UserName= validuser
+Email= validuser@example.fi
+Password= ValidPassword123
+Invalid_Username= XYZZZ
+Invalid_email= invalid.fi
+Invalid_Password= password
+
+
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive and Negative Test Cases and Test Process steps (Think about possible test cases)
+
+# Positive Test examples are below write test process steps for each below test case
+
+Register user with valid username and password 
+	Navigate To Registration Page RegisterUrl
+		Input Username validuser
+		Input email validuser@example.fi
+		Input Password ValidPassword123
+		Submit Registration Form
+		Submit Email Verification
+Verify Page Should Contain Verification successful after succesful Email Verification
+
+# Negative Test examples keywords are below write test process steps for each below test case 
+
+Error Message Should Be Visible After Invalid Registration with Empty Password
+	Navigate To Registration Page RegisterUrl
+		Input Username validuser
+		Input Email validuser@example.fi
+		Input Password Empty
+		Submit Registration Form
+Verify That Error Message Should Show Minimum length is 8 characters
+
+Error Message Should Be Visible After Invalid Registration with Invalid Email
+	Navigate To Registration Page RegisterUrl
+		Input Username validuser
+		Input Email invalid.fi
+		Input Password ValidPassword123
+		Submit Registration Form
+Verify That Error Message Should Show Please provide a valid email address
+
+Error Message Should Be Visible After Invalid Registration with Without Recaptcha
+	Navigate To Registration Page RegisterUrl
+		Input Username validuser
+		Input Email validuser@example.fi
+		Input Password ValidPassword123
+		Submit Registration Form without CAPTCHA
+Verify That Error Message Should Show Please solve this captcha in order to proceed.

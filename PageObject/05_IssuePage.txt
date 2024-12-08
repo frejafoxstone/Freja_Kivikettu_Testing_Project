@@ -1,0 +1,89 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+Documentation	Issue Test scenario. CRUD Operation: Create, Read, Update, Delete
+				Tests creating, updating, and deleting issues in a project.
+
+# TODO: Write Precondition and Postcondition, Tags 
+
+Pre Condition	Project Needs To Exist And User Must Be Logged In
+Post Condition	Created Issues Are Removed After Test
+Tags	Issue, TS-4-Issue
+
+#******************* Common Variables ********************
+
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Issue creation field variables, Updated name of the issue
+
+LoginUrl= https://gitlab.com/users/sign_in
+ProjectUrl= https://gitlab.com/frejas-project
+ProjectName= First project
+IssueTitle= Issue one
+UpdatedIssueTitle= Issue updated
+SecondIssueTitle= Issue updated
+
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive Test Cases and Test Process steps
+
+# Positive Test examples are below write test process steps for each below test case
+
+	Create issue,
+		Create a new issue and verify success
+			Navigate To Login Page LoginUrl
+			Log In User
+			Navigate To Project Page ProjectUrl
+			Select Project First project
+			Select Issues
+			Select New issue
+			Input Issue Title Issue one
+			Submit Create issue
+		Verify Message Open Issue created just now by user. 
+
+
+ 	Update name of issue
+		Update the name of the first issue and verify success
+			Navigate To Login Page LoginUrl
+			Log In User
+			Navigate To Project Page ProjectUrl
+			Select Project First project
+			Select Issues
+			Select Issue one
+			Select Edit
+			Input New Title Issue updated
+			Submit Save changes
+		Verify Message User changed title from Issue one to Issue updated just now.
+
+
+	Create second issue with privious updated name
+		Create a new issue with the updated issue title and verify success
+			Navigate To Login Page LoginUrl
+			Log In User
+			Navigate To Project Page ProjectUrl
+			Select Project First project
+			Select Issues
+			Select New issue
+			Input Issue Title Issue updated
+			Submit Create issue
+		Verify Message Open Issue created just now by user.
+
+    Delete first issue
+		Delete the first issue from the project and verify success
+			Navigate To Login Page LoginUrl
+			Log In User
+			Navigate To Project Page ProjectUrl
+			Select Project First project
+			Select Issues
+			Select Issue updated #1
+			Select three dots
+			Submit Delete issue
+			Submit Yes delete issue
+		Verify The first issue is no longer on the Issues page.

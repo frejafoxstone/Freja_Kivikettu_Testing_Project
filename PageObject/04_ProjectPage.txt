@@ -1,0 +1,104 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+# TODO: Write Dcocumentation e.g. Project Test scenario. CRUD Operation: Create, Read, Update, Delete
+
+Documentation	Test Project Management Functionality including create, update, and delete with positive and negative scenarios.
+
+# TODO: Write Precondition, Postcondition, Tags
+
+Pre Condition	Open Browser And Log In  
+Post Condition	Project Is Saved And Functional
+				Close All Browsers
+Tags Project, TS-3-Project
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Project creation field variables
+LoginUrl= https://gitlab.com/users/sign_in
+ProjectUrl= https://gitlab.com/frejas-project
+ProjectName= First project
+DuplicateProjectName= First project
+TemplateProjectName= Template first project
+NewTemplateProjectName= Template new
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive and Negative Test Cases and Test Process steps
+
+# Positive Test examples are below write test process steps for each below test case
+
+	Create a blank project
+		Create a new blank project and verify success
+			Navigate To Login Page LoginUrl
+			Log In User
+			Navigate To Project Page ProjectUrl
+			Select New Project
+			Select Create blank project
+			Input Project Name First project
+			Submit Create project
+		Verify Page Should Contain a new blank project
+
+
+	Create template project
+		Create a new blank template project and verify success
+			Navigate To Login Page LoginUrl
+			Log In User
+			Navigate To Project Page ProjectUrl
+			Select New Project
+			Select Create from template
+			Select a template
+			Input Template Project Name Template first project
+			Submit Create project
+		Verify Message The project was successfully imported.
+
+
+	Update name of template project
+		Update the name of an existing template project and verify success
+			Navigate To Login Page LoginUrl
+			Log In User
+			Navigate To Project Page ProjectUrl
+			Select Template first project
+			Select Settings
+			Select General
+			Input New Project name Template new
+			Submit Save changes
+		Verify Message Project 'Template new' was successfully updated.
+
+
+	Delete template project
+		Delete an existing template project and verify success
+			Navigate To Login Page LoginUrl
+			Log In User
+			Navigate To Project Page ProjectUrl
+			Select Template new
+			Select Settings
+			Select General
+			Select Advanced
+			Submit Delete project
+			Insert Project/template-new
+			Submit Yes delete project
+		Verify Projects page does not contain Template project Template new anymore.	
+
+		
+# Negative Test examples are below write test process steps for each below test case
+
+	Create a blank project with the previous same name
+		Create project woth a duplicate project name
+			Navigate To Login Page LoginUrl
+			Log In User
+			Navigate To Project Page ProjectUrl
+			Select New Project
+			Select Create blank project
+			Input Project Name First project
+			Submit Create project
+		Verify That Error Message Shows The form contains the following errors: Name has already been taken.  	
+
